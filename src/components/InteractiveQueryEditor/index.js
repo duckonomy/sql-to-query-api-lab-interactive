@@ -144,7 +144,7 @@ const InteractiveQueryEditor = ({
             <span>Results ({Array.isArray(result) ? result.length : 1} documents)</span>
             {isCorrect !== null && (
               <span className={isCorrect ? styles.correct : styles.incorrect}>
-                {isCorrect ? '✅ Correct!' : '❌ Try again'}
+                {isCorrect ? 'Correct!' : 'Try again'}
               </span>
             )}
           </div>
