@@ -15,6 +15,7 @@ const port = 3001;
 
 app.use(cors());
 app.use(json());
+app.use(express.static(path.join(__dirname, "../build")));
 
 let mongoClient = null;
 let currentDb = null;
@@ -163,6 +164,10 @@ app.get('/api/health', (_, res) => {
     connected: !!currentDb,
     timestamp: new Date().toISOString()
   });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.listen(port, () => {
