@@ -3,6 +3,7 @@ import cors from 'cors';
 import { MongoClient } from 'mongodb';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import path from "path";
 import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
