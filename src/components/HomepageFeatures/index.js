@@ -14,7 +14,7 @@ function Feature({ illustration, title, description, fetchPriority }) {
           height="100%"
           role="img"
           alt=""
-          fetchpriority={fetchPriority}
+          fetchPriority={fetchPriority}
         />
       </div>
       <div className="text--center padding-horiz--md">

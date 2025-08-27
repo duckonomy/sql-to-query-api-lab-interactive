@@ -12,6 +12,12 @@ db.collection.find({ <query> })
 
 ## Example: Find all books from 2020
 
+Try this query to find all books from 2020:
+
+<InteractiveQueryEditor
+  initialQuery='db.books.find({ year: 2020 })'
+/>
+
 ```js
 db.books.find({ year: 2020 });
 ```
@@ -39,12 +45,16 @@ Now, let's utilize a few MongoDB operators and create more sophisticated queries
 
 Suppose we want to get all of the books that were written in 2010 or that have more than 200 pages.
 
+<InteractiveQueryEditor
+  initialQuery='db.books.find({ $or: [{ year: 2010 }, { pages: { $gt: 200 } }] })'
+/>
+
+**Equivalent SQL:**
 ```sql
-  SELECT * FROM books WHERE year = 2010 OR pages > 200;
+SELECT * FROM books WHERE year = 2010 OR pages > 200;
 ```
 
-Equivalent MongoDB query:
-
+**MongoDB syntax:**
 ```js
 db.books.find({
   $or: [
@@ -58,12 +68,16 @@ db.books.find({
 
 This time, instead of OR, let's query using AND:
 
+<InteractiveQueryEditor
+  initialQuery='db.books.find({ $and: [{ year: 2010 }, { pages: { $gt: 200 } }] })'
+/>
+
+**Equivalent SQL:**
 ```sql
-  SELECT * FROM books WHERE year = 2010 AND pages > 200;
+SELECT * FROM books WHERE year = 2010 AND pages > 200;
 ```
 
-Equivalent MongoDB query:
-
+**MongoDB syntax:**
 ```js
 db.books.find({
   $and: [
@@ -77,45 +91,59 @@ db.books.find({
 
 When we are querying on two different fields and want to utilize $and, we can do so by passing a document with all the conditions, like this:
 
+<InteractiveQueryEditor
+  initialQuery='db.books.find({ year: 2010, pages: { $gt: 200 } })'
+/>
+
+**MongoDB syntax:**
 ```js
 db.books.find({ year: 2010, pages: { $gt: 200 } });
 ```
 
 As you can see, we don't have to pass an array of conditions. MongoDB implicitly considers this as $and.
 
-## 👐 Challenge
+Now, test your knowledge with these interactive exercises:
 
-Now, translate the following into a MongoDB query.
+<InteractiveExercise
+  title="Challenge 1: Find books by exact inventory"
+  description="Find all books where totalInventory is exactly 5."
+  initialQuery='db.books.find({ totalInventory: 5 })'
+  hint="Use exact equality matching with totalInventory field"
+  solution='db.books.find({ totalInventory: 5 })'
+/>
 
-#### 1. Find all books where `totalInventory` is exactly 5.
+<InteractiveExercise
+  title="Challenge 2: Find books with many pages"
+  description="Find all books with more than 300 pages."
+  initialQuery='db.books.find({ pages: { $gt: 300 } })'
+  hint="Use the $gt operator to find pages greater than 300"
+  solution='db.books.find({ pages: { $gt: 300 } })'
+/>
+
+<InteractiveExercise
+  title="Challenge 3: Complex filtering"
+  description="Find books in the Science genre that are more than 300 pages long."
+  initialQuery='db.books.find({ genres: "Science", pages: { $gt: 300 } })'
+  hint="Use genres field (it's an array) and combine with pages filter"
+  solution='db.books.find({ genres: "Science", pages: { $gt: 300 } })'
+/>
+
 
 <details>
-  <summary>Answer</summary>
-  <div>
-    ```js
-      db.books.find({ totalInventory: 5 });
-    ```
-  </div>
-</details>
+  <summary>Answers</summary>
 
-#### 2. Find all books with more than 300 pages.
+  **Challenge 1:**
+  ```js
+  db.books.find({ totalInventory: 5 });
+  ```
 
-<details>
-  <summary>Answer</summary>
-  <div>
-    ```js
-      db.books.find({ pages: {$gt: 300} });
-    ```
-  </div>
-</details>
+  **Challenge 2:**
+  ```js
+  db.books.find({ pages: {$gt: 300} });
+  ```
 
-#### 3. Find books in the `Science` genre that are more than 300 pages long.
-
-<details>
-  <summary>Answer</summary>
-  <div>
-    ```js
-      db.books.find({ "genre.name": "Science", pages: {$gt: 300} });
-    ```
-  </div>
+  **Challenge 3:**
+  ```js
+  db.books.find({ "genre.name": "Science", pages: {$gt: 300} });
+  ```
 </details>

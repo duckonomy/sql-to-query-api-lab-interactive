@@ -122,7 +122,8 @@ const config = {
       }),
     ],
   ],
-  plugins: [require.resolve("docusaurus-lunr-search")],
+  // plugins: [require.resolve("docusaurus-lunr-search")],
+  plugins: [],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({

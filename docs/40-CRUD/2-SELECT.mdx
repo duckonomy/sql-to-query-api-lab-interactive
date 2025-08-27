@@ -17,6 +17,11 @@ db.collection.find({ <query> }, { <projection> });
 
 ## **Example 1: Retrieve only `title` and `authors` fields**
 
+<InteractiveQueryEditor
+  initialQuery='db.books.find({}, { title: 1, authors: 1, _id: 0 })'
+/>
+
+**MongoDB syntax:**
 ```js
 db.books.find({}, { title: 1, authors: 1, _id: 0 });
 ```
@@ -36,61 +41,75 @@ Here:
 
 ## **Example 2: Exclude the `reviews` field**
 
+<InteractiveQueryEditor
+  initialQuery='db.books.find({}, { reviews: 0 })'
+/>
+
+**MongoDB syntax:**
 ```js
 db.books.find({}, { reviews: 0 });
 ```
 
 **Equivalent SQL query:**
-
 ```sql
 SELECT title, authors, genres, totalInventory, available FROM books;
 ```
 
 Here:
-
 - We are removing `reviews`, but all other fields will still appear.
 
 ---
 
 ## **Example 3: Using projection along with a query**
 
+<InteractiveQueryEditor
+  initialQuery='db.books.find({ genres: "Science" }, { title: 1, totalInventory: 1, _id: 0 })'
+/>
+
+**MongoDB syntax:**
 ```js
-db.books.find({ "genre.name": "Science" }, { title: 1, totalInventory: 1, _id: 0 });
+db.books.find({ genres: "Science" }, { title: 1, totalInventory: 1, _id: 0 });
 ```
 
 **Equivalent SQL query:**
-
 ```sql
 SELECT title, totalInventory FROM books WHERE genres='Science';
 ```
 
 Here:
-
 - We first **filter** books that belong to the "Science" genre.
 - We then **select only** the `title` and `totalInventory` fields.
 
 ---
-
 ## **Challenge**
 
 ### 👐 1. Retrieve only the `title` field for all books.
+<InteractiveExercise
+  title="Challenge 1: Select only title fields"
+  description="Retrieve only the title field for all books (exclude _id as well)."
+  initialQuery='db.books.find({}, {title: 1, _id: 0})'
+  hint="Use projection with title: 1 and _id: 0"
+  solution='db.books.find({}, {title: 1, _id: 0})'
+/>
+
+<InteractiveExercise
+  title="Challenge 2: Find books with genres array"
+  description="Find books in the Fiction genre, but exclude the _id and reviews fields."
+  initialQuery='db.books.find({ genres: "Fiction" }, { _id: 0, reviews: 0 })'
+  hint="Use genres array filter and exclude fields with 0"
+  solution='db.books.find({ genres: "Fiction" }, { _id: 0, reviews: 0 })'
+/>
 
 <details>
-  <summary>Answer</summary>
-  <div>
-    ```js
-      db.books.find({}, {title: 1, _id: 0});
-    ```
-  </div>
-</details>
+  <summary>Answers</summary>
 
-### 👐 2. Retrieve all fields except `_id` and `authors` for books in the "History" genre.
+  **Challenge 1:**
+  ```js
+  db.books.find({}, {title: 1, _id: 0});
+  ```
 
-<details>
-  <summary>Answer</summary>
-  <div>
-    ```js
-    db.books.find({ "genre.name": "History" }, { _id: 0, authors: 0 });
-    ```
-  </div>
+  **Challenge 2:**
+  ```js
+  db.books.find({ "genre.name": "Fiction" }, { _id: 0, price: 0 });
+  ```
 </details>
