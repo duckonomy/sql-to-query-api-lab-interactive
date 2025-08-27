@@ -16,7 +16,12 @@ const port = 3001;
 
 app.use(cors());
 app.use(json());
-app.use(express.static(path.join(__dirname, "../build")));
+
+app.use("/sql-to-query-api-lab", express.static(path.join(__dirname, "../build")));
+
+app.get("/sql-to-query-api-lab/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 let mongoClient = null;
 let currentDb = null;
